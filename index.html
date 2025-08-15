@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Library LMS</title>
+
+    <!-- Fonts (graceful fallback if offline) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation" title="Toggle navigation">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <div class="brand" aria-label="Library LMS">Library LMS</div>
+
+        <div class="search">
+          <input id="globalSearch" type="search" placeholder="Search courses, authors, topics…" aria-label="Search" />
+        </div>
+
+        <div class="user-area">
+          <button id="userMenuButton" class="user-button" aria-haspopup="true" aria-expanded="false">
+            <span id="userInitials" class="avatar" aria-hidden="true">👤</span>
+            <span id="userNameLabel">Sign in</span>
+          </button>
+          <div id="userMenu" class="menu" role="menu" aria-hidden="true">
+            <button id="openSignIn" role="menuitem">Sign in</button>
+            <button id="signOut" role="menuitem" class="danger" hidden>Sign out</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="app-body">
+        <aside id="sidebar" class="sidebar">
+          <nav class="nav">
+            <a href="#/dashboard" class="nav-link" data-route>
+              <span class="icon" aria-hidden="true">🏠</span>
+              <span>Dashboard</span>
+            </a>
+            <a href="#/courses" class="nav-link" data-route>
+              <span class="icon" aria-hidden="true">📚</span>
+              <span>Course Catalog</span>
+            </a>
+            <a href="#/my" class="nav-link" data-route>
+              <span class="icon" aria-hidden="true">🎓</span>
+              <span>My Learning</span>
+            </a>
+            <a href="#/library" class="nav-link" data-route>
+              <span class="icon" aria-hidden="true">📖</span>
+              <span>Library</span>
+            </a>
+            <a href="#/admin" class="nav-link admin-only" data-route>
+              <span class="icon" aria-hidden="true">🛠️</span>
+              <span>Admin</span>
+            </a>
+          </nav>
+
+          <div class="sidebar-section">
+            <div class="section-title">Titles</div>
+            <div id="sidebarCourses" class="sidebar-list" role="list"></div>
+          </div>
+
+          <div class="shelf-decoration" aria-hidden="true">
+            <div class="shelf"></div>
+            <div class="shelf"></div>
+            <div class="shelf"></div>
+          </div>
+        </aside>
+
+        <main id="viewContainer" class="view" tabindex="-1" aria-live="polite" aria-busy="false"></main>
+      </div>
+
+      <footer class="app-footer">
+        <div>© <span id="year"></span> Library LMS. Inspired by classic libraries.</div>
+      </footer>
+    </div>
+
+    <!-- Dialogs -->
+    <dialog id="signInDialog" class="dialog">
+      <form method="dialog" id="signInForm" class="dialog-content" autocomplete="on">
+        <h2>Welcome back</h2>
+        <p class="muted">Sign in locally (no server needed).</p>
+        <label class="field">
+          <span>Name</span>
+          <input id="signInName" name="name" type="text" placeholder="Ada Lovelace" required />
+        </label>
+        <label class="field">
+          <span>Role</span>
+          <select id="signInRole" name="role" required>
+            <option value="learner">Learner</option>
+            <option value="admin">Admin</option>
+          </select>
+        </label>
+        <menu class="dialog-actions">
+          <button value="cancel" class="secondary">Cancel</button>
+          <button id="signInSubmit" value="default" class="primary">Sign in</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="assets/data.js"></script>
+    <script src="assets/script.js"></script>
+  </body>
+  <script>
+    // Initialize footer year early to avoid flashes
+    document.addEventListener('DOMContentLoaded', function () {
+      var yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    });
+  </script>
+  </html>
+
+
